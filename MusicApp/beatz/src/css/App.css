@@ -1,0 +1,321 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  color: #ffffff;
+  background-image: url("../recursos/MenuInicio.jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scrollbar-width: none;
+}
+
+/* Main Application Container */
+.menuInicio {
+  width: 960px;
+  height: 600px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.096);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.overlapGroupWrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.overlapGroup {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* --- Left Sidebar - Translúcido --- */
+.overlap {
+  position: absolute;
+  width: 200px;
+  height: calc(100% - 80px);
+  top: 0;
+  left: 0;
+  background-color: rgba(10, 10, 10, 0.65); 
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarTop {
+    padding-left: 5px;
+    margin-bottom: 15px;
+}
+
+.logo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 20px;
+  margin-right: 60px;
+  display: block;
+  border-radius: 20px;
+}
+
+.fotoUsuario { 
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.userName {
+  color: #e0e0e0;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.sidebarNav {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+/* Sidebar Navigation Links */
+.navItem { /* Renombrado de .home, .buscar, .biblioteca */
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 6px 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.navItem:hover {
+  background-color: rgba(255, 255, 255, 0.1); 
+}
+
+.navItem.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+.navItem.active .textWrapper {
+  color: #ffffff;
+}
+.navItem.active .icon {
+  background-color: #ffffff; 
+}
+
+.textWrapper, .inicio, .inicio2 {
+  color: #cccccc; 
+  font-size: 13px;
+  font-weight: bold;
+}
+
+
+/* --- Main Content Area - Translúcido --- */
+.overlap2 {
+  display: flex;
+  flex-direction: column;
+  overflow: auto; 
+  position: absolute;
+  top: 0;
+  left: 200px;
+  width: calc(100% - 200px);
+  height: calc(100% - 80px);
+  box-sizing: border-box;
+  padding: 15px 25px; 
+  z-index: 1;
+  background-color: rgba(18, 18, 18, 0.55);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+}
+
+/* Window Controls Area */
+.windowControls {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: flex;
+    gap: 12px;
+    z-index: 10;
+}
+
+/* Estilos para los iconos de ventana */
+.window-icon {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.7); 
+}
+.window-icon:hover {
+    background-color: rgba(255, 255, 255, 1); 
+}
+
+
+/* Content Titles */
+.titulo {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 80px;
+  margin-top: 30px;
+  color: #fff;
+}
+
+.paraTi {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #f0f0f0;
+}
+
+/* Album Art Grid */
+.albumContainer {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 8px;
+}
+
+.FotoAlbum1,
+.FotoAlbum2,
+.FotoAlbum3,
+.FotoAlbum4 {
+  width: 125px;
+  height: 125px;
+  border-radius: 6px;
+  object-fit: cover;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+.FotoAlbum1:hover,
+.FotoAlbum2:hover,
+.FotoAlbum3:hover,
+.FotoAlbum4:hover {
+    transform: scale(1.04);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Album Titles Section */
+.albumTitlesContainer {
+    display: flex;
+    gap: 20px;
+    padding-left: 0;
+    margin-bottom: 25px;
+}
+.nombreAlbum,
+.nombreAlbum2,
+.nombreAlbum3,
+.nombreAlbum4 {
+  font-size: 12px;
+  font-weight: bold;
+  color: #e0e0e0;
+  width: 125px;
+  margin-top: 0;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Suggestions Title */
+.sugerencias {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 70px;
+  color: #f0f0f0;
+}
+
+
+/* --- Music Player Bar - Translúcido --- */
+.overlap3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  /* Fondo Translúcido y Blur (similar a sidebar) */
+  background-color: rgba(15, 15, 15, 0.7);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1); 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  box-sizing: border-box;
+  z-index: 5;
+}
+
+/* --- Icon Styling using Masks --- */
+.icon {
+  display: inline-block; 
+  background-color: #b3b3b3; 
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+/* Tamaños base para iconos */
+.sidebarNav .icon { width: 20px; height: 20px; margin-right: 12px; }
+.playerLeft .icon { width: 18px; height: 18px; margin-left: 8px; }
+.playerControls .icon { width: 16px; height: 16px; }
+.playerRight .icon { width: 16px; height: 16px; }
+
+/* Hover para iconos generales */
+.icon:hover {
+  background-color: #ffffff; /* Blanco al pasar */
+}
+
+/* Icono Like (puede tener estilo diferente si es "activo") */
+.icon-like {
+background-color: #8C1992;
+}
+
+
+/* Estilo para la IMAGEN del icono de play DENTRO del contenedor */
+.reproducir-icon {
+   display: block; 
+   width: 30px;   
+   height: 30px;   
+}
+
+
+
+/* --- Resto de estilos del player (sin cambios grandes) --- */
+.playerLeft { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 150px; }
+.currentAlbumArt { width: 48px; height: 48px; border-radius: 4px; object-fit: cover; }
+.songDetails { display: flex; flex-direction: column; gap: 2px; }
+.nombreCancion { font-size: 13px; font-weight: 500; color: #fff; }
+.nombreArtista { font-size: 11px; color: #b3b3b3; }
+
+.playerCenter { display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 2; max-width: 600px; gap: 6px; }
+.playerControls { display: flex; align-items: center; gap: 15px; }
+
+.progressBarContainer { width: 100%; max-width: 400px; display: flex; align-items: center; gap: 8px; }
+.currentTime, .totalTime { font-size: 10px; color: #b3b3b3; min-width: 30px; text-align: center; }
+.progressBar { height: 4px; flex-grow: 1; background-color: rgba(255, 255, 255, 0.3); border-radius: 2px; cursor: pointer; position: relative; }
+.progressBar > div { height: 100%; background-color: #fff; border-radius: 2px; transition: background-color 0.2s ease; }
+.progressBar:hover > div { background-color: #8C1992; }
+
+.playerRight { display: flex; align-items: center; justify-content: flex-end; gap: 12px; flex: 1; min-width: 150px; }
+.barraVolumen { width: 70px; height: 4px; background-color: rgba(255, 255, 255, 0.3); border-radius: 2px; cursor: pointer; margin-left: -5px; position: relative; }
+.barraVolumen > div { height: 100%; background-color: #fff; border-radius: 2px; transition: background-color 0.2s ease; }
+.barraVolumen:hover > div { background-color: #8C1992; }
+
+
+.overlap2::-webkit-scrollbar {
+  width: 0; /* Para ocultar la barra de desplazamiento vertical */
+}

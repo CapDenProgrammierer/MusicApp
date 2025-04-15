@@ -1,0 +1,57 @@
+/* Estilos específicos para BibliotecaView */
+.biblioteca-titulo { 
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    color: #fff;
+  }
+  
+  .biblioteca-botones-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .biblioteca-boton {
+    padding: 8px 15px;
+    border-radius: 20px;
+    background-color: #8C1992;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+  }
+  
+  .biblioteca-boton:hover {
+    background-color: #A539AC;
+  }
+  
+  .biblioteca-buscador-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .biblioteca-buscador-input {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    width: 300px;
+    outline: none;
+    font-size: 14px;
+  }
+  
+  .biblioteca-buscador-input::placeholder {
+    color: #ccc;
+  }
+  
+  .biblioteca-lista-item {
+    font-size: 16px;
+    color: #e0e0e0;
+    margin-bottom: 8px;
+  }

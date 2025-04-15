@@ -1,0 +1,113 @@
+/* AlbumView.css */
+
+.album-view-container {
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .album-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .album-artwork-large {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+  }
+  
+  .album-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el título y el artista */
+  }
+  
+  .album-title {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  
+  .album-artist {
+    font-size: 1.2em;
+    color: #b3b3b3;
+    margin-bottom: 15px;
+  }
+  
+  .album-controls {
+    display: flex; /* Para alinear el botón y el icono horizontalmente */
+    align-items: center; /* Para centrar verticalmente el botón y el icono */
+    margin-top: 10px; /* Espacio entre el nombre del artista y los controles */
+  }
+  
+  .album-play-button {
+    background-color: #77197a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 1em;
+    display: flex; /* Para alinear el icono y el texto del botón */
+    align-items: center;
+  }
+  
+  .album-play-button:hover {
+    background-color: #9b18a0;
+  }
+  
+  .album-play-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px; /* Espacio entre el icono y el texto del botón */
+  }
+  
+  .album-like-icon {
+    width: 25px; /* Ajusta el tamaño del icono de like */
+    height: 25px; /* Ajusta el tamaño del icono de like */
+    margin-left: 20px; /* Espacio entre el botón de reproducción y el icono de like */
+    cursor: pointer;
+  }
+  
+  .album-tracklist {
+    width: 80%;
+    margin-top: 30px; /* Aumenta el espacio entre la información del álbum y la lista de canciones */
+  }
+  
+  .album-tracklist ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .song-item {
+    background-color: #cd10aa4d; /* Color del rectángulo */
+    color: #fff; /* Color del texto de la canción */
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    display: flex; /* Para alinear la imagen y el título de la canción */
+    align-items: center;
+  }
+  
+  .song-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .song-artwork {
+    width: 30px; /* Ajusta el tamaño de la imagen del álbum */
+    height: 30px; /* Ajusta el tamaño de la imagen del álbum */
+    border-radius: 3px; 
+    margin-right: 10px; /* Espacio entre la imagen y el título de la canción */
+  }
+  
+  .album-artist:hover {
+     color: #fff;
+     cursor: pointer; 
+    }
