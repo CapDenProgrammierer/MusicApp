@@ -32,20 +32,49 @@ import FotoCancion from "../recursos/FotoCancion.jpg";
 
 function App() {
   const [currentView, setCurrentView] = useState('inicio');
-  const [selectedAlbum, setSelectedAlbum] = useState(null); // Estado para almacenar el álbum seleccionado
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [audio, setAudio] = useState(null); 
+  const [isPlaying, setIsPlaying] = useState(false);
+  
 
   const handleAlbumSelect = (album) => {
     setSelectedAlbum(album);
     setCurrentView('album');
   };
 
+  const reproducirCancion = async () => {
+    try {
+      if (audio && isPlaying) {
+        // Si la canción ya está en reproducción, pausamos
+        audio.pause();
+        setIsPlaying(false);
+      } else {
+        // Si no hay canción o está pausada, la reproducimos
+        const response = await fetch("https://localhost:7083/api/ReproducirCancion/Reproducir/FancyClown");
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        
+        if (audio) {
+          audio.pause();
+          URL.revokeObjectURL(audio.src); // Limpia el anterior
+        }
   
+        const nuevoAudio = new Audio(url);
+        nuevoAudio.play();
+        setAudio(nuevoAudio);
+        setIsPlaying(true);
+      }
+    } catch (error) {
+      console.error("Error al reproducir:", error);
+    }
+  };
+
   return (
     <div className="menuInicio">
       <div className="overlapGroupWrapper">
         <div className="overlapGroup">
 
-          {/* --- Sidebar --- */}
+          {/* Sidebar */}
           <div className="overlap">
             <div className="sidebarTop">
               <img className="logo" alt="Logo" src={logo} />
@@ -53,31 +82,30 @@ function App() {
               <div className="userName">Kendall Cordero</div>
             </div>
             <nav className="sidebarNav">
-              <div className={`navItem ${currentView === 'inicio' ? 'active' : ''}`} onClick={() => setCurrentView('inicio')}> {/* 'home' class renombrada a navItem */}
+              <div className="navItem" onClick={() => setCurrentView('inicio')}>
                 <div className="icon icon-home" style={{ WebkitMaskImage: `url(${inicio})`, maskImage: `url(${inicio})` }}></div>
                 <div className="textWrapper">Inicio</div>
               </div>
-              <div className={`navItem ${currentView === 'buscar' ? 'active' : ''}`} onClick={() => setCurrentView('buscar')}> {/* 'buscar' class renombrada a navItem */}
+              <div className="navItem" onClick={() => setCurrentView('buscar')}>
                 <div className="icon icon-buscar" style={{ WebkitMaskImage: `url(${buscar})`, maskImage: `url(${buscar})` }}></div>
                 <div className="inicio">Buscar</div>
               </div>
-              <div className={`navItem ${currentView === 'biblioteca' ? 'active' : ''}`} onClick={() => setCurrentView('biblioteca')}> {/* 'biblioteca' class renombrada a navItem */}
+              <div className="navItem" onClick={() => setCurrentView('biblioteca')}>
                 <div className="icon icon-biblioteca" style={{ WebkitMaskImage: `url(${biblioteca})`, maskImage: `url(${biblioteca})` }}></div>
                 <div className="inicio2">Biblioteca</div>
               </div>
             </nav>
           </div>
 
-          {/* --- Main Content Area --- */}
+          {/* Main Content */}
           <div className="overlap2">
             <div className="windowControls">
-              {/* Iconos de ventana */}
               <div className="icon window-icon icon-minimizar" style={{ WebkitMaskImage: `url(${minimizar})`, maskImage: `url(${minimizar})` }}></div>
               <div className="icon window-icon icon-maximizar" style={{ WebkitMaskImage: `url(${expandirVentana})`, maskImage: `url(${expandirVentana})` }}></div>
               <div className="icon window-icon icon-cerrar" style={{ WebkitMaskImage: `url(${cerrar})`, maskImage: `url(${cerrar})` }}></div>
             </div>
 
-            {currentView === 'inicio' ? (
+            {currentView === 'inicio' && (
               <>
                 <div className="titulo">Inicio</div>
                 <div className="paraTi">Para ti</div>
@@ -103,16 +131,13 @@ function App() {
                 </div>
                 <div className="sugerencias">Sugerencias para hoy</div>
               </>
-            ) : currentView === 'buscar' ? (
-              <BuscarView onAlbumSelect={handleAlbumSelect} />
-            ) : currentView === 'biblioteca' ? (
-              <BibliotecaView onAlbumSelect={handleAlbumSelect} />
-            ) : currentView === 'album' ? (
-              <AlbumView album={selectedAlbum}/>
-            ) : null}
+            )}
+            {currentView === 'buscar' && <BuscarView onAlbumSelect={handleAlbumSelect} />}
+            {currentView === 'biblioteca' && <BibliotecaView onAlbumSelect={handleAlbumSelect} />}
+            {currentView === 'album' && <AlbumView album={selectedAlbum} />}
           </div>
 
-          {/* --- Bottom Player Bar --- */}
+          {/* Player */}
           <div className="overlap3">
             <div className="playerLeft">
               <img className="currentAlbumArt" src={FotoCancion} alt="Current Album Art" />
@@ -120,16 +145,16 @@ function App() {
                 <div className="nombreCancion">Fancy Clown</div>
                 <div className="nombreArtista">MF DOOM</div>
               </div>
-              {/* Icono like */}
               <div className="icon icon-like" style={{ WebkitMaskImage: `url(${like})`, maskImage: `url(${like})` }}></div>
             </div>
 
             <div className="playerCenter">
               <div className="playerControls">
-                {/* Iconos de controles */}
                 <div className="icon icon-random" style={{ WebkitMaskImage: `url(${aleatorio})`, maskImage: `url(${aleatorio})` }}></div>
                 <div className="icon icon-anterior" style={{ WebkitMaskImage: `url(${anterior})`, maskImage: `url(${anterior})` }}></div>
-                <div className="reproducir-wrapper"><img src={playButton} alt="Reproducir" className="reproducir-icon" /></div>
+                <button className="reproducir-wrapper" onClick={reproducirCancion}>
+                  <img src={playButton} alt="Reproducir" className="reproducir-icon" />
+                </button>
                 <div className="icon icon-siguiente" style={{ WebkitMaskImage: `url(${siguiente})`, maskImage: `url(${siguiente})` }}></div>
                 <div className="icon icon-repetir" style={{ WebkitMaskImage: `url(${repetir})`, maskImage: `url(${repetir})` }}></div>
               </div>
@@ -143,7 +168,6 @@ function App() {
             </div>
 
             <div className="playerRight">
-              {/* Iconos derechos */}
               <div className="icon icon-letra" style={{ WebkitMaskImage: `url(${microfono})`, maskImage: `url(${microfono})` }}></div>
               <div className="icon icon-cola" style={{ WebkitMaskImage: `url(${cola})`, maskImage: `url(${cola})` }}></div>
               <div className="icon icon-dispositivo" style={{ WebkitMaskImage: `url(${conectarDispositivo})`, maskImage: `url(${conectarDispositivo})` }}></div>
