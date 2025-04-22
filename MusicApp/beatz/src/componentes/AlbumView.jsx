@@ -6,7 +6,7 @@ import playIcon from "../recursos/PlayButton.png";
 
 function AlbumView({ album, onArtistSelect }) { // Recibe onArtistSelect como prop
   if (!album) {
-    return <div>No album selected.</div>;
+    return <div>No se ha seleccionado ningún álbum.</div>;
   }
 
   const handleArtistClick = (artistName) => {
@@ -23,7 +23,7 @@ function AlbumView({ album, onArtistSelect }) { // Recibe onArtistSelect como pr
   return (
     <div className="album-view-container">
       <div className="album-header">
-        <img src={album.artwork} alt={album.title} className="album-artwork-large" />
+        <img src={album.artwork} alt={`Portada de ${album.title}`} className="album-artwork-large" />
         <div className="album-details">
           <h2 className="album-title">{album.title}</h2>
           <h3 className="album-artist" onClick={() => handleArtistClick(album.artist)} style={{ cursor: 'pointer' }}>{album.artist}</h3>
@@ -40,7 +40,7 @@ function AlbumView({ album, onArtistSelect }) { // Recibe onArtistSelect como pr
         <ul>
           {canciones.map((cancion, index) => (
             <li key={index} className="song-item">
-              <img src={album.artwork} alt={album.title} className="song-artwork" />
+              <img src={album.artwork} alt={`Portada de ${album.title}`} className="song-artwork" />
               <span>{cancion.title}</span>
             </li>
           ))}

@@ -76,6 +76,9 @@ function BuscarView({ onAlbumSelect, onArtistSelect }) { // Recibe la función o
           </div>
         </div>
       </div>
+      <div onClick={() => onAlbumSelect({ title: "Album Demo", artist: "Artista Demo" })}>
+        Seleccionar álbum
+      </div>
     </div>
   );
 }

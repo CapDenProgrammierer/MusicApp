@@ -44,6 +44,9 @@ function BibliotecaView({ onAlbumSelect }) { // Recibe la función onAlbumSelect
         <div className="nombreAlbum3">Demon Days</div>
         <div className="nombreAlbum4">Rumours</div>
       </div>
+      <div onClick={() => onAlbumSelect({ title: "Album Demo", artist: "Artista Demo" })}>
+        Seleccionar álbum
+      </div>
     </div>
   );
 }

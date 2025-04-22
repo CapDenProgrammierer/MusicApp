@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MusicApp.Models;
@@ -29,16 +30,14 @@ namespace MusicApp.Controllers
 
         // GET: api/Usuarios/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> GetUsuario(int id)
+        public IActionResult GetUsuario(int id)
         {
-            var usuario = await _context.Usuarios.FindAsync(id);
-
+            var usuario = _context.Usuarios.Find(id);
             if (usuario == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Usuario no encontrado" });
             }
-
-            return usuario;
+            return Ok(usuario);
         }
 
         // PUT: api/Usuarios/5
@@ -99,9 +98,35 @@ namespace MusicApp.Controllers
             return NoContent();
         }
 
+        // POST: api/Usuarios/login
+        [HttpPost("login")]
+        public async Task<ActionResult<Usuario>> Login([FromBody] MusicApp.Models.LoginRequest loginRequest)
+        {
+
+            Console.WriteLine($"Solicitud recibida: UserName={loginRequest.UserName}, Password={loginRequest.Password}");
+            // Ensure the UserName and Password fields are correctly matched
+            var usuario = await _context.Usuarios
+                .FirstOrDefaultAsync(u => u.UserName == loginRequest.UserName);
+
+            if (usuario == null)
+            {
+                return NotFound(new { Message = "Usuario no encontrado. Verifica el nombre de usuario." });
+            }
+
+            if (usuario.Password != loginRequest.Password)
+            {
+                return Unauthorized(new { Message = "Contraseña incorrecta. Intenta nuevamente." });
+            }
+
+            // Optional: Add logging or token generation here if needed
+
+            return Ok(usuario); // Return user data if credentials are correct
+        }
+
         private bool UsuarioExists(int id)
         {
             return _context.Usuarios.Any(e => e.UsuarioId == id);
         }
+
     }
 }
