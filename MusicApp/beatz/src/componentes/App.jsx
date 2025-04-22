@@ -15,6 +15,16 @@ import buscar from "../recursos/buscar.png";
 import biblioteca from "../recursos/biblioteca.png";
 
 function App() {
+  const [currentView, setCurrentView] = useState('inicio');
+  const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [audio, setAudio] = useState(null); 
+  const [isPlaying, setIsPlaying] = useState(false);
+  
+
+  const handleAlbumSelect = (album) => {
+    setSelectedAlbum(album);
+    setCurrentView('album');
+  };
     const [currentView, setCurrentView] = useState("inicio");
     const [selectedAlbum, setSelectedAlbum] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);

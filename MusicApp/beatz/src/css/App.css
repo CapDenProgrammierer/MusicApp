@@ -291,6 +291,14 @@ background-color: #8C1992;
    width: 30px;   
    height: 30px;   
 }
+.reproducir-icon:hover {
+   background-color: #ffffff; 
+}
+.reproducir-wrapper{
+  background-color: #ffffff00;
+  border : none;
+}
+
 
 
 
