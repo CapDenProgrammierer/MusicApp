@@ -22,11 +22,20 @@ namespace MusicApp.Controllers
 
         // GET: api/Canciones
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cancione>>> GetCanciones()
+        public async Task<ActionResult<IEnumerable<object>>> GetCanciones()
         {
-            return await _context.Canciones.ToListAsync();
+            return await _context.Canciones
+                .Select(c => new
+                {
+                    c.CancionId,
+                    c.Nombre,
+                    c.ArtistaId,
+                    c.Genero,
+                    c.Anho,
+                    c.Duracion
+                })
+                .ToListAsync();
         }
-
         // GET: api/Canciones/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Cancione>> GetCancione(int id)

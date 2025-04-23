@@ -1,23 +1,28 @@
 ﻿import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom"; // Importar useNavigate
 
 function Login({ onLogin }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const navigate = useNavigate(); // Inicializar useNavigate
 
     const handleLogin = async () => {
         try {
-            // Ensure the correct fields are sent to the backend
+            // Enviar los datos correctos al backend
             const response = await axios.post("http://localhost:5279/api/Usuarios/login", {
-                userName: username, // Ensure this matches the backend's expected field
-                password: password, // Ensure this matches the backend's expected field
+                UserName: username, // Asegúrate de que coincida con el modelo del backend
+                Password: password, // Asegúrate de que coincida con el modelo del backend
             });
 
-            // If login is successful, call onLogin with user data
+            // Si el inicio de sesión es exitoso, llama a onLogin con los datos del usuario
             onLogin(response.data);
+
+            // Redirigir a la página principal
+            navigate("/"); // Redirige al usuario a la página principal
         } catch (err) {
-            // Handle errors with detailed messages
+            // Manejar errores con mensajes detallados
             if (err.response && err.response.status === 401) {
                 setError("Contraseña incorrecta. Por favor, verifica tus credenciales.");
             } else if (err.response && err.response.status === 404) {
@@ -26,13 +31,6 @@ function Login({ onLogin }) {
                 setError("Error al iniciar sesión. Intenta nuevamente más tarde.");
             }
         }
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Simulate login logic
-        const user = { id: 1, nombre: "Usuario Demo" }; // Replace with actual login logic
-        onLogin(user);
     };
 
     return (

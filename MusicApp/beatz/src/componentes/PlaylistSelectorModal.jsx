@@ -2,13 +2,28 @@
 
 function PlaylistSelectorModal({ isOpen, onClose, onSelectPlaylist, cancionId }) {
     const [playlistId, setPlaylistId] = useState(""); // Estado para almacenar el ID de la playlist ingresado
+    const [error, setError] = useState(""); // Estado para manejar el mensaje de error
 
-    const handleConfirm = () => {
+    const handleConfirm = async () => {
         if (!playlistId) {
-            alert("Por favor, ingresa un ID de playlist válido.");
+            setError("Por favor, ingresa un ID de playlist válido.");
             return;
         }
-        onSelectPlaylist(playlistId, cancionId); // Llama a la función para agregar la canción a la playlist
+
+        try {
+            // Llama a la función para agregar la canción a la playlist
+            await onSelectPlaylist(playlistId, cancionId);
+            setError(""); // Limpia el mensaje de error si la operación es exitosa
+            onClose(); // Cierra el modal
+        } catch (err) {
+            // Manejar errores del backend
+            if (err.response && err.response.status === 400) {
+                const backendMessage = err.response.data.Message || "Ocurrió un error.";
+                setError(backendMessage); // Mostrar el mensaje devuelto por el backend
+            } else {
+                setError("Ocurrió un error al agregar la canción. Puede que esta ya este agregada.");
+            }
+        }
     };
 
     if (!isOpen) {
@@ -30,6 +45,7 @@ function PlaylistSelectorModal({ isOpen, onClose, onSelectPlaylist, cancionId })
                     <button onClick={handleConfirm}>Confirmar</button>
                     <button onClick={onClose}>Cancelar</button>
                 </div>
+                {error && <p style={{ color: "red" }}>{error}</p>} {/* Mostrar mensaje de error */}
             </div>
         </div>
     );

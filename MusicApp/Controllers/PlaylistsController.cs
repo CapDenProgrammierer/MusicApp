@@ -22,12 +22,17 @@ namespace MusicApp.Controllers
 
         // GET: api/Playlists
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Playlist>>> GetPlaylists()
+        public async Task<ActionResult<IEnumerable<object>>> GetPlaylists()
         {
             return await _context.Playlists
-                .Include(p => p.Canciones) // Incluir las canciones asociadas
+                .Select(p => new
+                {
+                    p.PlaylistId,
+                    p.Nombre
+                })
                 .ToListAsync();
         }
+
 
 
         // GET: api/Playlists/5
@@ -117,6 +122,33 @@ namespace MusicApp.Controllers
 
             return NoContent();
         }
+
+        // GET: api/Playlists/{playlistId}/canciones
+        [HttpGet("{playlistId}/canciones")]
+        public async Task<ActionResult<IEnumerable<object>>> GetCancionesByPlaylistId(int playlistId)
+        {
+            var playlist = await _context.Playlists
+                .Include(p => p.Canciones)
+                .FirstOrDefaultAsync(p => p.PlaylistId == playlistId);
+
+            if (playlist == null)
+            {
+                return NotFound(new { Message = "Playlist no encontrada" });
+            }
+
+            return playlist.Canciones
+                .Select(c => new
+                {
+                    c.CancionId,
+                    c.Nombre,
+                    c.ArtistaId,
+                    c.Genero,
+                    c.Anho,
+                    c.Duracion
+                })
+                .ToList();
+        }
+
 
         // DELETE: api/Playlists/5
         [HttpDelete("{id}")]

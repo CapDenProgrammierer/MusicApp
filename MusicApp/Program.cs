@@ -6,15 +6,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Configurar CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin", policy =>
+    options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:3000") // URL del frontend
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+        policy.WithOrigins("http://localhost:3000") // Cambia esto al origen de tu frontend
+              .AllowAnyHeader()
+              .AllowAnyMethod();
     });
 });
 
-// Add services to the container.
+// Agregar servicios al contenedor
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -22,17 +22,6 @@ builder.Services.AddSwaggerGen();
 // Configurar la cadena de conexión a la base de datos
 builder.Services.AddDbContext<SpotilinfContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-// Configurar CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-    {
-        policy.WithOrigins("http://localhost:3000") // Cambia esto al puerto de tu frontend
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
 
 var app = builder.Build();
 
@@ -43,10 +32,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Usar CORS
+app.UseCors("AllowFrontend");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run(); 
+app.Run();
